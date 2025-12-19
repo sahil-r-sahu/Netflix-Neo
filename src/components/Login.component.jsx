@@ -1,14 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header.component";
 import { useRef, useState } from "react";
 import { checkValidData } from "../utils/Validations.utils";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase.utils";
+/* import { useDispatch } from "react-redux"; */
+/* import { addUser } from "../utils/userSlice.utils"; */
 
 const Login = () => {
+  const navigate = useNavigate();
+  /*  const dispatch = useDispatch(); */
+
   const [isSignInForm, setIsSignInForm] = useState(true); //Initially Sign In form will be displayed
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -34,7 +40,7 @@ const Login = () => {
 
     if (message) return; //If there are no error message then proceed to Sign In/Up
 
-    //Go to firebase documentation to get the code for sign In & sign Up  >>> https://firebase.google.com/docs/auth/web/password-auth?hl=en
+    // Go to firebase documentation to get the code for sign In & sign Up  >>> https://firebase.google.com/docs/auth/web/password-auth?hl=en
     if (!isSignInForm) {
       //Sign Up form Logic
       createUserWithEmailAndPassword(
@@ -45,7 +51,20 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up >>> User goes to home page
           const user = userCredential.user;
-          console(user);
+          updateProfile(user, {
+            displayName: name.current.value,
+          })
+            .then(() => {
+              // Profile updated!
+              /* const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              ); */
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setErrorMessage(error?.message || "Something went wrong");
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -63,6 +82,7 @@ const Login = () => {
           // Signed in >>> user goes to home page
           const user = userCredential.user;
           console.log(user);
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
