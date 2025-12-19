@@ -2,19 +2,27 @@ import { Link } from "react-router-dom";
 import Header from "./Header.component";
 import { useRef, useState } from "react";
 import { checkValidData } from "../utils/Validations.utils";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase.utils";
 
 const Login = () => {
-  const [isSignInForm, setIsSignInForm] = useState(true);
+  const [isSignInForm, setIsSignInForm] = useState(true); //Initially Sign In form will be displayed
   const [errorMessage, setErrorMessage] = useState(null);
 
+  //Reference to name, email & password entered by the user in input boxes
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
+  //Toggling Sign In/Up form
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
   };
 
+  //This function will be called as soon as user clickes on Sign In/up button
   const handerButtonClick = () => {
     const message = checkValidData(
       isSignInForm ? "" : name.current?.value,
@@ -23,6 +31,45 @@ const Login = () => {
       isSignInForm //passing as props to use in checkvalidData function
     );
     setErrorMessage(message);
+
+    if (message) return; //If there are no error message then proceed to Sign In/Up
+
+    //Go to firebase documentation to get the code for sign In & sign Up  >>> https://firebase.google.com/docs/auth/web/password-auth?hl=en
+    if (!isSignInForm) {
+      //Sign Up form Logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up >>> User goes to home page
+          const user = userCredential.user;
+          console(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "" + errorMessage);
+        });
+    } else {
+      //Sign In form Logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in >>> user goes to home page
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "" + errorMessage);
+        });
+    }
   };
 
   return (
@@ -41,6 +88,7 @@ const Login = () => {
 
       <div className="bg-black/80 absolute flex items-center text-center justify-center my-28 mx-auto left-0 right-0 w-4/12 text-white rounded-sm">
         <form
+          //Preventing the default behaviour of browser to reload on submit button. So that we can validate the data entered by the user
           onSubmit={(e) => {
             e.preventDefault();
           }}
@@ -51,6 +99,7 @@ const Login = () => {
           </h2>
 
           {!isSignInForm && (
+            //This input box will only be shown on sign up page
             <input
               ref={name}
               className="p-2 border-2 rounded-sm"
@@ -77,13 +126,14 @@ const Login = () => {
           <p className="text-red-500 text-xs">{errorMessage}</p>
           <button
             type="submit"
-            onClick={handerButtonClick}
+            onClick={handerButtonClick} //Validating data before submiting the form
             className="w-full bg-red-600 p-1.5 font-bold rounded-sm cursor-pointer"
           >
             {isSignInForm ? "Sign In" : "Sign Up"}
           </button>
 
           {isSignInForm && (
+            //This will only be displayed on sign In form
             <div className="flex gap-3 flex-col">
               <p>OR</p>
 
