@@ -10,7 +10,6 @@ const MainContainer = () => {
 
   //nowPlayingMovies returns 20 movies out of which taking 1st as main
   const mainMovie = movies[0];
-  console.log(mainMovie);
 
   //Extracting things from mainMovie to pass as props
   const { original_title, overview, id } = mainMovie;

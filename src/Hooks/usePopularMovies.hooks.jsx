@@ -1,29 +1,29 @@
 import { API_OPTIONS } from "../utils/constant.utils";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addNowPlayingMovies } from "../utils/movieSlice.utils";
+import { addPopularMovies } from "../utils/movieSlice.utils";
 
 //Since the browse component was getting messy, we created a own costum hook for it
 //So this hook is just fething data and updating the store bas  !
 
-const useNowPlayingMovies = () => {
+const usePopularMovies = () => {
   const dispatch = useDispatch();
 
-  //Fething the data of nowPlayingMovies from tmdb and updating the store
-  const getNowPlayingMovies = async () => {
+  //Fething the data of popularMovies from tmdb and updating the store
+  const getPopularMovies = async () => {
     const data = await fetch(
-      "https://api.themoviedb.org/3/movie/now_playing?page=1",
+      "https://api.themoviedb.org/3/movie/popular?page=1",
       API_OPTIONS
     );
 
     const json = await data.json();
 
-    dispatch(addNowPlayingMovies(json.results));
+    dispatch(addPopularMovies(json.results));
   };
 
   useEffect(() => {
-    getNowPlayingMovies();
+    getPopularMovies();
   }, []);
 };
 
-export default useNowPlayingMovies;
+export default usePopularMovies;

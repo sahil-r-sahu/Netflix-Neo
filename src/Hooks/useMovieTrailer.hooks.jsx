@@ -14,7 +14,6 @@ const useMovieTrailer = (movie_Id) => {
     );
     const json = await data.json();
     //but this will return an array of all the videos associated with it so we need to filter out the trailer from it
-    console.log(json);
 
     //Filtering trailer from the databased on type. Also, as all id has more than one trailer filtering more with name as official trailer
     //since we only want 1 video we should use find() instead of filter()... as filter() returns array of object and find() returns a object only
@@ -24,7 +23,6 @@ const useMovieTrailer = (movie_Id) => {
         (video) => video.type === "Trailer" && video.name === "Official Trailer"
       ) || json.results.find((video) => video.type === "Trailer");
 
-    console.log(trailer);
     dispatch(addTrailerVideo(trailer)); // Adding trailer to store to get key
   };
 
