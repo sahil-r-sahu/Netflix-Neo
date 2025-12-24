@@ -5,12 +5,14 @@ import SecondaryContainer from "./SecondaryContainer.component";
 import usePopularMovies from "../Hooks/usePopularMovies.hooks";
 import useUpcomingMovies from "../Hooks/useUpcomingMovies.hooks";
 import useTopRatedMovies from "../Hooks/useTopRatedMovies.hooks";
+import usePopularWebSeries from "../Hooks/usePopularWebSeries.hooks";
 
 const Browse = () => {
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
   useUpcomingMovies();
+  usePopularWebSeries();
 
   return (
     <div>
