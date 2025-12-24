@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "./Header.component";
 import { useRef, useState } from "react";
 import { checkValidData } from "../utils/Validations.utils";
@@ -8,12 +8,12 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase.utils";
-/* import { useDispatch } from "react-redux"; */
-/* import { addUser } from "../utils/userSlice.utils"; */
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice.utils";
+import { Bg_Url } from "../utils/constant.utils";
 
 const Login = () => {
-  const navigate = useNavigate();
-  /*  const dispatch = useDispatch(); */
+  const dispatch = useDispatch();
 
   const [isSignInForm, setIsSignInForm] = useState(true); //Initially Sign In form will be displayed
   const [errorMessage, setErrorMessage] = useState(null);
@@ -56,11 +56,10 @@ const Login = () => {
           })
             .then(() => {
               // Profile updated!
-              /* const { uid, email, displayName } = auth.currentUser;
+              const { uid, email, displayName } = auth.currentUser;
               dispatch(
                 addUser({ uid: uid, email: email, displayName: displayName })
-              ); */
-              navigate("/browse");
+              );
             })
             .catch((error) => {
               setErrorMessage(error?.message || "Something went wrong");
@@ -81,8 +80,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in >>> user goes to home page
           const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -101,7 +98,7 @@ const Login = () => {
           /* className={`absolute inset-0 w-full h-full object-cover
            transition-transform duration-700 ease-out
             ${showLogin ? "scale-150" : "scale-100"}`} */
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/8e4a7625-f942-48f5-a9b0-d470b772bc8c/web/IN-en-20251215-TRIFECTA-perspective_a8575e53-99ab-4f16-a2d6-c037acaf12a6_large.jpg"
+          src={Bg_Url}
           alt="background"
         />
       </div>
