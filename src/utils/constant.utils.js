@@ -22,3 +22,6 @@ export const suported_Language = [
   { identifier: "hn", name: "Hindi" },
   { identifier: "mh", name: "Marathi" },
 ];
+
+export const OPEN_AI_KEY =
+  "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";
