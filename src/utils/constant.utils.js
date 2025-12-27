@@ -14,5 +14,11 @@ export const API_OPTIONS = {
   },
 };
 
-export const IMG_URL =
-  "https://image.tmdb.org/t/p/w500/";
+export const IMG_URL = "https://image.tmdb.org/t/p/w500/";
+
+//Making multi_language suppoet dynamic
+export const suported_Language = [
+  { identifier: "en", name: "English" },
+  { identifier: "hn", name: "Hindi" },
+  { identifier: "mh", name: "Marathi" },
+];

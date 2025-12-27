@@ -6,8 +6,12 @@ import usePopularMovies from "../Hooks/usePopularMovies.hooks";
 import useUpcomingMovies from "../Hooks/useUpcomingMovies.hooks";
 import useTopRatedMovies from "../Hooks/useTopRatedMovies.hooks";
 import usePopularWebSeries from "../Hooks/usePopularWebSeries.hooks";
+import GptSearch from "./GptSearch.component";
+import { useSelector } from "react-redux";
 
 const Browse = () => {
+  //Subscribing to store to get boolean value of gpt button
+  const showGptSearchs = useSelector((store) => store.gptSearch.showGptSearch);
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
@@ -17,9 +21,14 @@ const Browse = () => {
   return (
     <div>
       <Header />
-      <MainContainer />
-      <SecondaryContainer />
-      <div></div>
+      {showGptSearchs ? (
+        <GptSearch />
+      ) : (
+        <>
+          <MainContainer />
+          <SecondaryContainer />
+        </>
+      )}
     </div>
   );
 };

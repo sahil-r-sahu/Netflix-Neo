@@ -90,7 +90,7 @@ const Login = () => {
   };
 
   return (
-    <div className="">
+    <div className=" bg-black/80">
       <Header />
 
       <div className="absolute">
