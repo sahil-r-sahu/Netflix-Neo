@@ -1,8 +1,8 @@
 import { IMG_URL } from "../utils/constant.utils";
 
-const movieCard = ({posterPath}) => {
+const movieCard = ({ posterPath }) => {
   return (
-    <div className="w-40 rounded-lg cursor-pointer  border-2">
+    <div className=" w-24 md:w-40 rounded-lg cursor-pointer  border-2">
       <img src={IMG_URL + posterPath} alt="Card" />
     </div>
   );

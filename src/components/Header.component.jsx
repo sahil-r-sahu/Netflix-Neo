@@ -60,17 +60,17 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute  pt-2 pl-28 bg-linear-to-b from-black z-10 flex justify-between">
-      <img className="w-2/12 fill-red-500" src={LogoUrl} alt="netflix-logo" />
+    <div className="absolute top-0 left-0 w-full px-4 sm:px-10 md:px-28 pt-2 bg-linear-to-b from-black z-10 flex items-center justify-between">
+      <img className="w-24 sm:w-32 md:w-40" src={LogoUrl} alt="netflix-logo" />
 
       {user && (
         //This will be show only when user will be logged In
-        <div className="flex gap-5  items-center">
+        <div className="flex gap-2 sm:gap-5 items-center">
           {showGPTSearch && (
             //Multi lnguage support only for GPT page
             <select
               onChange={handleLanguageChange}
-              className="text-white border-2 border-white hover:border-red-500 rounded-lg px-4 py-2"
+              className=" text-white border-2 border-white hover:border-red-500 rounded-lg px-1 py-1  sm:px-4 sm:py-2"
             >
               {suported_Language.map((lang) => (
                 <option
@@ -84,18 +84,18 @@ const Header = () => {
             </select>
           )}
           <button
-            className="bg-purple-500/80 hover:opacity-50 text-white px-5 py-2 rounded-lg cursor-pointer border-2 border-white"
+            className="bg-purple-500/80 hover:opacity-50 text-sm sm:text-base text-white md:px-5 px-1 md:py-2 py-1 rounded-lg cursor-pointer border-2 border-white"
             onClick={handleGptSearchClick}
           >
             {showGPTSearch ? "Home" : "GPT Search"}
           </button>
           <img
-            className="w-10 h-10 rounded-lg border-2 border-white"
+            className=" hidden md:block w-10 h-10 rounded-lg border-2 border-white"
             src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
             alt="user-icon"
           />
           <button
-            className="bg-red-500/80 hover:opacity-50 text-white px-3 py-2 rounded-lg cursor-pointer border-2 border-white"
+            className="bg-red-500/80 hover:opacity-50 text-sm sm:text-base text-white md:px-3 px-1 py-1 md:py-2 rounded-lg cursor-pointer border-2 border-white"
             onClick={handleSignOut}
           >
             Sign Out

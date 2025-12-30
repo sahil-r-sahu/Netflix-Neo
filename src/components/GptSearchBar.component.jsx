@@ -4,9 +4,12 @@ import { useRef } from "react";
 import openai from "../utils/openAi.utils";
 import { API_OPTIONS } from "../utils/constant.utils";
 import { addGptMovieResults } from "../utils/gptSlice.utils";
+import useGptLimitPopup from "../Hooks/usePopup.hooks";
 
 const GptSearchBar = () => {
   const dispatch = useDispatch();
+
+  const { triggerGptLimitPopup, GptLimitPopup } = useGptLimitPopup();
 
   //Subscribing to store to change & get language
   const langKey = useSelector((store) => store.config.lang);
@@ -28,7 +31,7 @@ const GptSearchBar = () => {
 
   //making an API call with the searchText entered by the user & getting the results for it
   const handleGptSearchButton = async () => {
-    console.log(searchText.current.value);
+    triggerGptLimitPopup();
 
     const gptQuery = `
       You are a professional movie recommendation engine.
@@ -57,8 +60,6 @@ const GptSearchBar = () => {
       console.log("GptApi failed");
     }
 
-    console.log(GptResult.choices[0].message.content);
-
     //this will return an array of movies after search
     const getGptMovies = GptResult.choices[0].message.content.split(",");
 
@@ -66,7 +67,6 @@ const GptSearchBar = () => {
     const promiseArray = getGptMovies.map((Movie) => searchMovieTMDB(Movie));
 
     const tmdbResults = await Promise.all(promiseArray);
-    console.log(tmdbResults);
 
     dispatch(
       addGptMovieResults({
@@ -80,21 +80,22 @@ const GptSearchBar = () => {
     <div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="pt-32 px-24 flex gap-8"
+        className="pt-24 px-4 sm:px-10 md:px-24 flex flex-col sm:flex-row gap-4 sm:gap-8"
       >
         <input
           ref={searchText}
-          className=" w-full px-4 py-2 rounded-lg text-white text-3xl border-2 border-white"
+          className=" w-full px-4 py-2 rounded-lg text-white text-lg sm:text-2xl md:text-3xl border-2 border-white bg-transparent"
           type="text"
           placeholder={lang[langKey].searchPlaceholder}
         />
         <button
           onClick={handleGptSearchButton}
-          className="py-2 px-6 text-2xl text-white bg-red-500 hover:bg-red-400/50 rounded-lg  cursor-pointer "
+          className="w-full sm:w-auto py-2 px-6 text-lg sm:text-xl md:text-2xl text-white bg-red-500 hover:bg-red-400/50 rounded-lg  cursor-pointer "
         >
           {lang[langKey].search}
         </button>
       </form>
+      <GptLimitPopup />
     </div>
   );
 };
