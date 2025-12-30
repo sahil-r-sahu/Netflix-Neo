@@ -9,8 +9,7 @@ export const API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMTk0MTExODU1Y2YwMzMyZTk1ZmIwY2I4ZDVkYTZmNCIsIm5iZiI6MTc2NjM4MzYzNy40MzkwMDAxLCJzdWIiOiI2OTQ4ZTAxNWYxNTkxNDRiMzVmYjEyNWUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.OswTw2ZjN6nWBR0LqRVHIqJx3m_6GTs4AkUWiQBPjtM",
+    Authorization: `Bearer ${import.meta.env.VITE_API_OPTIONS}`,
   },
 };
 
@@ -23,5 +22,4 @@ export const suported_Language = [
   { identifier: "mh", name: "Marathi" },
 ];
 
-export const OPEN_AI_KEY =
-  "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";
+export const OPEN_AI_KEY = import.meta.env.VITE_OPEN_AI_KEY;

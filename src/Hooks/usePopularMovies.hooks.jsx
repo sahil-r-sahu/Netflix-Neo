@@ -1,6 +1,6 @@
 import { API_OPTIONS } from "../utils/constant.utils";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPopularMovies } from "../utils/movieSlice.utils";
 
 //Since the browse component was getting messy, we created a own costum hook for it
@@ -8,6 +8,9 @@ import { addPopularMovies } from "../utils/movieSlice.utils";
 
 const usePopularMovies = () => {
   const dispatch = useDispatch();
+
+  //doing Memoisation >>> on every re-render the API call is done again & again so doing it by subscribing to the store & checking if data is alrady present or not .... if not then only we should call
+  const popularMovies = useSelector((store) => store.movie.popularMovies);
 
   //Fething the data of popularMovies from tmdb and updating the store
   const getPopularMovies = async () => {
@@ -22,7 +25,9 @@ const usePopularMovies = () => {
   };
 
   useEffect(() => {
-    getPopularMovies();
+    if (!popularMovies || popularMovies.length === 0) {
+      getPopularMovies();
+    }
   }, []);
 };
 
