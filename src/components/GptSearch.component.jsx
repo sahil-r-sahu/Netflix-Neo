@@ -4,7 +4,7 @@ import GptSearchBar from "./GptSearchBar.component";
 
 const GptSearch = () => {
   return (
-    <div className="bg-black/60">
+    <div className=" bg-black/60 ">
       <div className="absolute -z-10">
         <img src={Bg_Url} alt="background" />
       </div>

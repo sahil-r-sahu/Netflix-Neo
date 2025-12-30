@@ -1,13 +1,30 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import lang from "../utils/languageConstants.utils";
 import { useRef } from "react";
 import openai from "../utils/openAi.utils";
+import { API_OPTIONS } from "../utils/constant.utils";
+import { addGptMovieResults } from "../utils/gptSlice.utils";
 
 const GptSearchBar = () => {
+  const dispatch = useDispatch();
+
   //Subscribing to store to change & get language
   const langKey = useSelector((store) => store.config.lang);
   //collecting the text entered in the input box by the user
   const searchText = useRef(null);
+
+  //Searching movies in TMDB website
+  const searchMovieTMDB = async (Movie) => {
+    const data = await fetch(
+      "https://api.themoviedb.org/3/search/movie?query=" +
+        Movie +
+        "&include_adult=false&language=en-US&page=1",
+      API_OPTIONS
+    );
+
+    const json = await data.json();
+    return json.results;
+  };
 
   //making an API call with the searchText entered by the user & getting the results for it
   const handleGptSearchButton = async () => {
@@ -35,7 +52,28 @@ const GptSearchBar = () => {
       model: "gpt-4o",
       messages: [{ role: "user", content: gptQuery }],
     });
+
+    if (!GptResult.choices) {
+      console.log("GptApi failed");
+    }
+
     console.log(GptResult.choices[0].message.content);
+
+    //this will return an array of movies after search
+    const getGptMovies = GptResult.choices[0].message.content.split(",");
+
+    //searching each movies in TMDB website & this will return an arry of 5 promises
+    const promiseArray = getGptMovies.map((Movie) => searchMovieTMDB(Movie));
+
+    const tmdbResults = await Promise.all(promiseArray);
+    console.log(tmdbResults);
+
+    dispatch(
+      addGptMovieResults({
+        MovieNames: getGptMovies,
+        MovieResults: tmdbResults,
+      })
+    );
   };
 
   return (

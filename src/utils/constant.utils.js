@@ -24,4 +24,4 @@ export const suported_Language = [
 ];
 
 export const OPEN_AI_KEY =
-  "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";
+  "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";
