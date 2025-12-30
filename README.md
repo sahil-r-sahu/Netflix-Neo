@@ -22,7 +22,7 @@ It allows users to **sign in, browse trending movies & web series, and discover 
 
 ## 🌐 Live Demo
 
-🔗 [Netflix-Neo – AI Powered Movie Discovery Platform](https://sahil-r-sahu.github.io/Penora-Nest/)
+🔗 [Netflix-Neo – AI Powered Movie Discovery Platform](https://sahil-r-sahu.github.io/Netflix-Neo/)
 
 ---
 
