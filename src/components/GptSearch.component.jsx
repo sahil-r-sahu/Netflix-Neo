@@ -1,6 +1,7 @@
 import { Bg_Url } from "../utils/constant.utils";
 import GptMovieSuggestions from "./GptMovieSuggestions.component";
 import GptSearchBar from "./GptSearchBar.component";
+import Footer from "./Footer.component"
 
 const GptSearch = () => {
   return (
@@ -14,6 +15,7 @@ const GptSearch = () => {
       </div>
       <GptSearchBar />
       <GptMovieSuggestions />
+      <Footer />
     </div>
   );
 };

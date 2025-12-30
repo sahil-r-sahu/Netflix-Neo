@@ -8,6 +8,7 @@ import useTopRatedMovies from "../Hooks/useTopRatedMovies.hooks";
 import usePopularWebSeries from "../Hooks/usePopularWebSeries.hooks";
 import GptSearch from "./GptSearch.component";
 import { useSelector } from "react-redux";
+import Footer from "./Footer.component";
 
 const Browse = () => {
   //Subscribing to store to get boolean value of gpt button
@@ -27,6 +28,7 @@ const Browse = () => {
         <>
           <MainContainer />
           <SecondaryContainer />
+          <Footer />
         </>
       )}
     </div>

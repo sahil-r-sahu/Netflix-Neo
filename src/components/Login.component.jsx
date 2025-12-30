@@ -90,28 +90,26 @@ const Login = () => {
   };
 
   return (
-    <div className=" bg-black/80">
+    <div className=" min-h-screen bg-black/80 flex flex-col">
       <Header />
 
-      <div className="absolute">
+      <div className="fixed inset-0 -z-10">
         <img
-          /* className={`absolute inset-0 w-full h-full object-cover
-           transition-transform duration-700 ease-out
-            ${showLogin ? "scale-150" : "scale-100"}`} */
           src={Bg_Url}
           alt="background"
+          className="w-full h-full object-cover"
         />
       </div>
 
-      <div className="bg-black/80 absolute flex items-center text-center justify-center my-28 mx-auto left-0 right-0 w-4/12 text-white rounded-sm">
+      <div className="bg-black/80 relative mx-auto my-24 sm:mt-32 w-[90%] sm:w-[70%] md:w-[35%] text-white rounded-sm">
         <form
           //Preventing the default behaviour of browser to reload on submit button. So that we can validate the data entered by the user
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className="flex flex-col gap-5 p-10"
+          className="flex flex-col gap-4 sm:gap-5 p-6 sm:p-10"
         >
-          <h2 className="font-bold text-4xl text-start mb-6">
+          <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl text-start mb-4 sm:mb-6">
             {isSignInForm ? "Sign In" : "Sign Up"}
           </h2>
 
@@ -119,7 +117,7 @@ const Login = () => {
             //This input box will only be shown on sign up page
             <input
               ref={name}
-              className="p-2 border-2 rounded-sm"
+              className="p-2 sm:p-2.5 border-2 rounded-sm bg-gray-800 text-white"
               type="name"
               placeholder="Enter your full name"
               required
@@ -128,14 +126,14 @@ const Login = () => {
 
           <input
             ref={email}
-            className="p-2 border-2 rounded-sm"
+            className="p-2 sm:p-2.5 border-2 rounded-sm bg-gray-800 text-white"
             type="email"
             placeholder="Email OR mobile number"
             required
           />
           <input
             ref={password}
-            className="p-2 border-2 rounded-sm"
+            className="p-2 sm:p-2.5 border-2 rounded-sm bg-gray-800 text-white"
             type="password"
             placeholder="Password"
             required
@@ -162,7 +160,7 @@ const Login = () => {
             </div>
           )}
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center text-sm">
             <input
               type="checkbox"
               defaultChecked
