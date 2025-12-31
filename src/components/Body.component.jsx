@@ -1,9 +1,9 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import Browse from "./Browse.component";
 import Login from "./Login.component";
 
 const Body = () => {
-  const AppRouter = createBrowserRouter([
+  const AppRouter = createHashRouter([
     {
       path: "/",
       element: <Login />,
