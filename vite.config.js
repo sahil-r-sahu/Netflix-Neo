@@ -11,5 +11,5 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
-  base: "/netflix-neo/",
+  base: "/Netflix-Neo/",
 });
